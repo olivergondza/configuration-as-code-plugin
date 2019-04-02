@@ -19,6 +19,10 @@ env:
   global:
     - JAVA_LEVEL=8
 
+stages:
+  - test
+  - deploy
+
 matrix:
   include:
     - jdk: openjdk11
@@ -38,8 +42,11 @@ script:
       -Djava.level=$JAVA_LEVEL \
       $MVN_FLAG
 
-deploy:
-  - provider: script
-    script: .travis/release.sh
-    on:
-      branch: testRelease
+jobs:
+  include:
+    - stage: deploy
+      deploy:
+        - provider: script
+          script: .travis/release.sh
+          on:
+            branch: testRelease
