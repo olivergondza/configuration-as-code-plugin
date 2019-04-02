@@ -19,9 +19,9 @@ env:
   global:
     - JAVA_LEVEL=8
 
-stages:
-  - test
-  - deploy
+# No need to build on release commits from maven-release-plugin
+if: |
+  commit_message !~ /\[maven-release-plugin\]/
 
 matrix:
   include:
@@ -32,6 +32,8 @@ matrix:
       env:
         - MVN_FLAG='-Djenkins.version=2.164.1 -Daccess-modifier-checker.failOnError=true'
     - jdk: openjdk8
+      env:
+        - SHIPPABLE=true
 
 install:
   - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V $MVN_FLAG
@@ -42,11 +44,11 @@ script:
       -Djava.level=$JAVA_LEVEL \
       $MVN_FLAG
 
-jobs:
-  include:
-    - stage: deploy
-      deploy:
-        - provider: script
-          script: .travis/release.sh
-          on:
-            branch: testRelease
+deploy:
+  - provider: script
+    script: .travis/release.sh
+    on:
+      branch: testRelease
+      repo: jenkinsci/configuration-as-code-plugin
+      jdk: openjdk8
+      condition: SHIPPABLE = true
