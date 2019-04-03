@@ -51,4 +51,4 @@ deploy:
       branch: testRelease
       repo: jenkinsci/configuration-as-code-plugin
       jdk: openjdk8
-      condition: SHIPPABLE = true
+      condition: $SHIPPABLE = true
