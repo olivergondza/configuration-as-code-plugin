@@ -40,7 +40,7 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ".travis/run.sh"
+    script: ".travis/run.sh release"
     on:
       branch: testRelease
       repo: jenkinsci/configuration-as-code-plugin
