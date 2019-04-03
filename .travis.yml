@@ -36,17 +36,15 @@ matrix:
         - SHIPPABLE=true
 
 install:
-  - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V $MVN_FLAG
+  - .travis/run.sh install
 
 script:
-  - |
-    mvn clean install -B \
-      -Djava.level=$JAVA_LEVEL \
-      $MVN_FLAG
+  - .travis/run.sh
 
 deploy:
   - provider: script
-    script: .travis/release.sh
+    skip_cleanup: true
+    script: .travis/run.sh
     on:
       branch: testRelease
       repo: jenkinsci/configuration-as-code-plugin
