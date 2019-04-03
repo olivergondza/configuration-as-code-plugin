@@ -1,7 +1,5 @@
 sudo: false
-
 language: java
-
 notifications:
   email: false
 
@@ -36,17 +34,15 @@ matrix:
         - SHIPPABLE=true
 
 install:
-  - .travis/run.sh install
-
+  - ".travis/run.sh install"
 script:
-  - .travis/run.sh
-
+  - ".travis/run.sh"
 deploy:
   - provider: script
     skip_cleanup: true
-    script: .travis/run.sh
+    script: ".travis/run.sh"
     on:
       branch: testRelease
       repo: jenkinsci/configuration-as-code-plugin
       jdk: openjdk8
-      condition: $SHIPPABLE = true
+      condition: "$SHIPPABLE = true"

@@ -19,3 +19,5 @@ plugins.txt
 # Ignore DS_Store (Mac)
 .DS_Store
 
+github_deploy_rsa*
+!github_deploy_rsa.enc
