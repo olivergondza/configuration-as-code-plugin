@@ -1,5 +1,7 @@
 # configure config-file-provider files
 
+Configuration as Code support is availabe from config-file-provider 3.4.1.
+
 ## sample configuration
 
 ```yaml
